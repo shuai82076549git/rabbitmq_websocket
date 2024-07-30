@@ -22,6 +22,7 @@ function connect() {
     stompClient.connect({}, function (frame) {
         stompClient.subscribe('/user/topic/greeting', function (data) {
             var message = JSON.parse(data.body);
+            alert(1)
             showMessage(message);
         });
         //订阅群消息 后面的greeting 应该用群名代替
@@ -46,7 +47,7 @@ function sendMessage(event) {
             var user = patt.exec(messageContent);
             chatMessage.content=chatMessage.content.replace(patt,'');
             //发送给指定用户
-            stompClient.send("/app/toUser", {'user': user[1]}, JSON.stringify(chatMessage));
+            stompClient.send("/app/user", {'user': user[1]}, JSON.stringify(chatMessage));
             showMessage(chatMessage);
         }else{
             //群发

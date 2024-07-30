@@ -17,15 +17,21 @@ public class WebSocketConfig extends AbstractSessionWebSocketMessageBrokerConfig
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        //客户端给服务端发消息的地址的前缀
+        // 启用一个简单的消息代理，目的地前缀为 "/user"
+        registry.enableSimpleBroker("/topic","/queue");
+        // 设置应用程序目的地前缀为 "/app"
         registry.setApplicationDestinationPrefixes("/app");
+        // 设置用户目的地前缀为 "/user"
+        registry.setUserDestinationPrefix("/user");
         /**
          * 配置消息代理
          * 使用RabbitMQ做为消息代理，替换默认的Simple Broker
          */
-        registry
+      /*  registry
                 // "STOMP broker relay"处理所有消息将消息发送到外部的消息代理
-                .enableStompBrokerRelay("/exchange","/topic","/queue","/amq/queue");
+                .enableStompBrokerRelay("/exchange","/topic","/queue","/amq/queue");*/
+
+
         /**
          * RabbitMQ 四种目的地用法
          * 【1】 /queue/queuename
